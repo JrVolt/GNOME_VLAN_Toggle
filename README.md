@@ -2,19 +2,19 @@
 
 ### An updated GNOME extension to activate and deactivate VLAN connections from the system panel or top bar.
 
-<p align="center">
-    Dropdown menu
-    <img src="./IMG/Toggle-Droopdown.png" alt="Dropdown Toggle">
-    <br>
-    Topbar option
-    <img src="./IMG/Toggle-Bar.png" alt="Dropdown Toggle">
-</p>
+## Dropdown menu
 
-You can toggle on/off the both option in preference  
+<img src="./IMG/Toggle-Droopdown.png" alt="Dropdown Toggle">
 
-<p align="center">
-    <img src="./IMG/Settings.png" alt="Settings">
-</p>
+## Topbar option
+
+<img src="./IMG/Toggle-Bar.png" alt="Topbar Toggle">
+
+## Preferences
+
+You can toggle on/off both options in the preferences:
+
+<img src="./IMG/Settings.png" alt="Settings">
 
 ## Installation from source code
 
@@ -28,7 +28,7 @@ Now log out and log back in to reload the extensions.
 
 ## Usage
 
-This will let you activate or deactivate existing VLAN connections, managed by the network manager. You first need to create the VLANs with your preferred tool, such as `nm-connection-editor`. The status of each connections is refreshed only when you open the popup menu.
+This will let you activate or deactivate existing VLAN connections, managed by the network manager. You first need to create the VLANs with your preferred tool, such as `nm-connection-editor`. The status of each connection is refreshed only when you open the popup menu.
 
 ## License
 
