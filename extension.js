@@ -276,7 +276,7 @@ const VlanQuickSettingsItem = GObject.registerClass(
 export default class VlanSwitcherExtension extends Extension {
     enable() {
         this.client = NM.Client.new(null);
-        this._settings = this.getSettings('org.gnome.shell.extensions.vlan-switcher');
+        this._settings = this.getSettings('org.gnome.shell.extensions.updated-vlan-switcher');
         
         // Listen for settings changes
         this._settingsChangedId = this._settings.connect('changed', () => {

@@ -4,7 +4,7 @@ import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Ex
 
 export default class VlanSwitcherPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
-        const settings = this.getSettings('org.gnome.shell.extensions.vlan-switcher');
+        const settings = this.getSettings('org.gnome.shell.extensions.updated-vlan-switcher');
         
         const page = new Adw.PreferencesPage();
         const group = new Adw.PreferencesGroup({
