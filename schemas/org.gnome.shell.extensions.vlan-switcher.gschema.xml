@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+  <schema id="org.gnome.shell.extensions.vlan-switcher" path="/org/gnome/shell/extensions/vlan-switcher/" gettext-domain="gnome-shell-extensions">
+    <key type="b" name="show-panel-button">
+      <default>true</default>
+      <summary>Show panel button</summary>
+      <description>Display VLAN toggle in the top panel</description>
+    </key>
+    <key type="b" name="show-quick-settings">
+      <default>true</default>
+      <summary>Show in system menu</summary>
+      <description>Display VLAN in the system menu</description>
+    </key>
+  </schema>
+</schemalist>
