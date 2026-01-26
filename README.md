@@ -4,7 +4,7 @@
 
 ## Dropdown menu
 
-<img src="./IMG/Toggle-Droopdown.png" alt="Dropdown Toggle">
+<img src="./IMG/Toggle-Dropdown.png" alt="Dropdown Toggle">
 
 ## Topbar option
 
