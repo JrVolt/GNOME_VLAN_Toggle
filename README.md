@@ -4,11 +4,11 @@
 
 ## Dropdown menu
 
-<img src="./IMG/Toggle-Dropdown.png" alt="Dropdown Toggle" style="width: 50%; height: auto;>
+<img src="./IMG/Toggle-Dropdown.png" alt="Dropdown Toggle">
 
 ## Topbar option
 
-<img src="./IMG/Toggle-Bar.png" alt="Topbar Toggle" style="width: 50%; height: auto;>
+<img src="./IMG/Toggle-Bar.png" alt="Topbar Toggle">
 
 ## Usage
 
