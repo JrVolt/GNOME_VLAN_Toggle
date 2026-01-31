@@ -4,11 +4,9 @@
     "description": "Activate and deactivate VLAN connections from the system panel.",
     "version": 5,
     "shell-version": [ 
-        "42",
-        "43",
-        "44",
         "45",
         "46"
     ],
+    "settings-schema": "org.gnome.shell.extensions.updated-vlan-switcher",
     "url": "https://github.com/JrVolt/GNOME_VLAN_Toggle"
 }
