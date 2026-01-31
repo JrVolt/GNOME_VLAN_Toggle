@@ -22,6 +22,9 @@ You can toggle on/off both options in the preferences:
 cd ~/.local/share/gnome-shell/extensions/
 rm -r updated-vlan-switcher@jrvolt.github.io
 git clone https://github.com/JrVolt/GNOME_VLAN_Toggle updated-vlan-switcher@jrvolt.github.io
+cd updated-vlan-switcher@jrvolt.github.io
+glib-compile-schemas schemas/
+
 ```
 
 Now log out and log back in to reload the extensions.
