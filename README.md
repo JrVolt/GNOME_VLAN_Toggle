@@ -4,30 +4,41 @@
 
 ## Dropdown menu
 
-<img src="./IMG/Toggle-Dropdown.png" alt="Dropdown Toggle">
+<img src="./IMG/Toggle-Dropdown.png" alt="Dropdown Toggle" style="width: 50%; height: auto;>
 
 ## Topbar option
 
-<img src="./IMG/Toggle-Bar.png" alt="Topbar Toggle">
+<img src="./IMG/Toggle-Bar.png" alt="Topbar Toggle" style="width: 50%; height: auto;>
 
-## Preferences
+## Usage
 
-You can toggle on/off both options in the preferences:
+Dropdown menu and Topbar icon have direct link to: 
 
-<img src="./IMG/Settings.png" alt="Settings">
+- System preferences
+- Advanced Network (nm-connection-editor)
+- Extension preferences
 
-## Installation from source code
+You can toggle on/off both, Dropdown and Topbar icon extenison preferences:
+
+<img src="./IMG/Settings.png" alt="Settings" style="width: 75%; height: auto;>
+
+## Installation from source
 
 ```bash
 cd ~/.local/share/gnome-shell/extensions/
 rm -r updated-vlan-switcher@jrvolt.github.io
 git clone https://github.com/JrVolt/GNOME_VLAN_Toggle updated-vlan-switcher@jrvolt.github.io
+
 cd updated-vlan-switcher@jrvolt.github.io
 glib-compile-schemas schemas/
-
 ```
 
 Now log out and log back in to reload the extensions.
+
+## Installation from GNOME Extension Manager/Store
+
+[TBA]
+<!-- https://extensions.gnome.org/extension/TBA/updated-vlan-switcher/ -->
 
 ## Usage
 
