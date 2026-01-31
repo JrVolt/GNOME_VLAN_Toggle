@@ -75,6 +75,13 @@ const Indicator = GObject.registerClass(
                 this._openAdvancedNetwork();
             });
             this.menu.addMenuItem(advancedItem);
+
+            // Add extension preferences option
+            let extensionPrefsItem = new PopupMenu.PopupMenuItem(_('Extension Preferences'));
+            extensionPrefsItem.connect('activate', () => {
+                this._openExtensionPreferences();
+            });
+            this.menu.addMenuItem(extensionPrefsItem);
         }
         
         _addSwitch(vlan) {
@@ -117,6 +124,14 @@ const Indicator = GObject.registerClass(
         _openAdvancedNetwork() {
             let proc = new Gio.Subprocess({
                 argv: ['nm-connection-editor'],
+                flags: Gio.SubprocessFlags.NONE,
+            });
+            proc.init(null);
+        }
+
+        _openExtensionPreferences() {
+            let proc = new Gio.Subprocess({
+                argv: ['gnome-extensions', 'prefs', 'updated-vlan-switcher@jrvolt.github.io'],
                 flags: Gio.SubprocessFlags.NONE,
             });
             proc.init(null);
@@ -212,6 +227,13 @@ const VlanQuickToggle = GObject.registerClass({
             this._openAdvancedNetwork();
         });
         this._section.addMenuItem(advancedItem);
+
+        // Add extension preferences option
+        let extensionPrefsItem = new PopupMenu.PopupMenuItem(_('Extension Preferences'));
+        extensionPrefsItem.connect('activate', () => {
+            this._openExtensionPreferences();
+        });
+        this._section.addMenuItem(extensionPrefsItem);
     }
 
     _openPreferences() {
@@ -225,6 +247,14 @@ const VlanQuickToggle = GObject.registerClass({
     _openAdvancedNetwork() {
         let proc = new Gio.Subprocess({
             argv: ['nm-connection-editor'],
+            flags: Gio.SubprocessFlags.NONE,
+        });
+        proc.init(null);
+    }
+
+    _openExtensionPreferences() {
+        let proc = new Gio.Subprocess({
+            argv: ['gnome-extensions', 'prefs', 'updated-vlan-switcher@jrvolt.github.io'],
             flags: Gio.SubprocessFlags.NONE,
         });
         proc.init(null);
@@ -261,93 +291,6 @@ const VlanSystemIndicator = GObject.registerClass({
         super.destroy();
     }
 });
-
-// // QuickSettings submenu for VLAN
-// const VlanQuickSettingsItem = GObject.registerClass(
-//     class VlanQuickSettingsItem extends GObject.Object {
-//         _init(client) {
-//             super._init();
-            
-//             this._client = client;
-            
-//             // Create a simple submenu using PopupMenu - no custom styling
-//             this.container = new PopupMenu.PopupSubMenuMenuItem(_("VLAN"), true);
-//             this.container.icon.icon_name = 'network-wired-symbolic';
-//             this.menu = this.container.menu;
-            
-//             // Add to quickSettings
-//             let quickSettings = Main.panel.statusArea.quickSettings;
-//             if (quickSettings) {
-//                 quickSettings.menu.addMenuItem(this.container);
-//             }
-            
-//             // Listen for connection changes
-//             this._activeConnectionsId = this._client.connect('notify::active-connections', () => {
-//                 this._refresh();
-//             });
-//             this._connectionsId = this._client.connect('notify::connections', () => {
-//                 this._refresh();
-//             });
-//         }
-        
-//         _getVlanConnections() {
-//             let connections = this._client.get_connections() || [];
-//             return connections.filter(c => c.is_type(NM.SETTING_VLAN_SETTING_NAME))
-//                 .sort((a, b) => a.get_id() > b.get_id() ? 1 : -1);
-//         }
-        
-//         _refresh() {
-//             this.menu.removeAll();
-            
-//             let vlans = this._getVlanConnections();
-            
-//             if (vlans.length === 0) {
-//                 let item = new PopupMenu.PopupMenuItem(_("No VLAN found"));
-//                 item.reactive = false;
-//                 this.menu.addMenuItem(item);
-//                 return;
-//             }
-            
-//             vlans.forEach(vlan => {
-//                 this._addSwitch(vlan);
-//             });
-//         }
-        
-//         _addSwitch(vlan) {
-//             // Get active connection state
-//             let activeConnections = this._client.get_active_connections() || [];
-//             let activeVlan = activeConnections.find(ac =>
-//                 ac && ac.connection && ac.connection.get_uuid() === vlan.get_uuid()
-//             );
-//             let isActive = activeVlan !== undefined && 
-//                            activeVlan.get_state() !== NM.ActiveConnectionState.DEACTIVATED;
-            
-//             let item = new PopupMenu.PopupSwitchMenuItem(vlan.get_id(), isActive);
-//             item._vlan = vlan;
-//             item._activeConnection = activeVlan;
-            
-//             item.connect('toggled', () => {
-//                 if (item._activeConnection !== undefined) {
-//                     this._client.deactivate_connection_async(item._activeConnection, null, null);
-//                 } else {
-//                     this._client.activate_connection_async(vlan, null, null, null, null);
-//                 }
-//             });
-            
-//             this.menu.addMenuItem(item);
-//         }
-
-//         destroy() {
-//             if (this._activeConnectionsId) {
-//                 this._client.disconnect(this._activeConnectionsId);
-//             }
-//             if (this._connectionsId) {
-//                 this._client.disconnect(this._connectionsId);
-//             }
-//             super.destroy();
-//         }
-//     }
-// );
 
 export default class VlanSwitcherExtension extends Extension {
     enable() {
