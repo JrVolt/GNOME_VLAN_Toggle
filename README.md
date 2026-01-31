@@ -20,7 +20,7 @@ Dropdown menu and Topbar icon have direct link to:
 
 You can toggle on/off both, Dropdown and Topbar icon extenison preferences:
 
-<img src="./IMG/Settings.png" alt="Settings" style="width: 75%; height: auto;>
+<img src="./IMG/Settings.png" alt="Settings">
 
 ## Installation from source
 
