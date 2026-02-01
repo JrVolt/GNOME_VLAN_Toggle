@@ -18,9 +18,11 @@ Dropdown menu and Topbar icon have direct link to:
 - Advanced Network (nm-connection-editor)
 - Extension preferences
 
-You can toggle on/off both, Dropdown and Topbar icon extenison preferences:
+You can toggle on/off both, Dropdown and Topbar icon in extenison preferences:
 
 <img src="./IMG/Settings.png" alt="Settings">
+
+You first need to create the VLANs with your preferred tool, such as `nm-connection-editor`, otherwise nothing will displayed.
 
 ## Installation from source
 
@@ -39,10 +41,6 @@ Now log out and log back in to reload the extensions.
 
 [TBA]
 <!-- https://extensions.gnome.org/extension/TBA/updated-vlan-switcher/ -->
-
-## Usage
-
-This will let you activate or deactivate existing VLAN connections, managed by the network manager. You first need to create the VLANs with your preferred tool, such as `nm-connection-editor`. The status of each connection is refreshed only when you open the popup menu.
 
 ## License
 
