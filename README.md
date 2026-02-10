@@ -39,8 +39,7 @@ Now log out and log back in to reload the extensions.
 
 ## Installation from GNOME Extension Manager/Store
 
-[TBA]
-<!-- https://extensions.gnome.org/extension/TBA/updated-vlan-switcher/ -->
+[GNOME Extension](https://extensions.gnome.org/extension/9212/updated-vlan-switcher)
 
 ## License
 
