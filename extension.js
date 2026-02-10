@@ -10,19 +10,20 @@ import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/ex
 
 const QuickSettingsMenu = Main.panel.statusArea.quickSettings;
 
-const QuickToggle = QuickSettings.QuickToggle || class {};
-const QuickSettingsItem = QuickSettings.QuickSettingsItem || class {};
+const QuickToggle = QuickSettings.QuickToggle;
+const QuickSettingsItem = QuickSettings.QuickSettingsItem;
 
 const Indicator = GObject.registerClass(
     class Indicator extends PanelMenu.Button {
-        _init(client) {
+        _init(client, openExtensionPrefs) {
             super._init(0.0, _('VLAN'));
             
             this._client = client;
+            this._openExtensionPrefs = openExtensionPrefs;
             
             // Create icon
             let icon = new St.Icon({
-                icon_name: 'network-wired-symbolic',
+                icon_name: 'network-transmit-receive-symbolic',
                 style_class: 'system-status-icon',
             });
             this.add_child(icon);
@@ -130,11 +131,7 @@ const Indicator = GObject.registerClass(
         }
 
         _openExtensionPreferences() {
-            let proc = new Gio.Subprocess({
-                argv: ['gnome-extensions', 'prefs', 'updated-vlan-switcher@jrvolt.github.io'],
-                flags: Gio.SubprocessFlags.NONE,
-            });
-            proc.init(null);
+            this._openExtensionPrefs();
         }
 
         destroy() {
@@ -152,14 +149,15 @@ const Indicator = GObject.registerClass(
 const VlanQuickToggle = GObject.registerClass({
     GTypeName: 'VlanQuickToggle'
 }, class VlanQuickToggle extends QuickSettings.QuickMenuToggle {
-    _init(client) {
+    _init(client, openExtensionPrefs) {
         super._init({ title: _('VLAN'), toggleMode: false });
 
         this._client = client;
-        this.set({ iconName: 'network-wired-symbolic' });
+        this._openExtensionPrefs = openExtensionPrefs;
+        this.set({ iconName: 'network-transmit-receive-symbolic' });
 
         // Header and section
-        this.menu.setHeader('network-wired-symbolic', _('VLAN'), _('Manage VLANs'));
+        this.menu.setHeader('network-transmit-receive-symbolic', _('VLAN'), _('Manage VLANs'));
         this._section = new PopupMenu.PopupMenuSection();
         this.menu.addMenuItem(this._section);
 
@@ -252,13 +250,9 @@ const VlanQuickToggle = GObject.registerClass({
         proc.init(null);
     }
 
-    _openExtensionPreferences() {
-        let proc = new Gio.Subprocess({
-            argv: ['gnome-extensions', 'prefs', 'updated-vlan-switcher@jrvolt.github.io'],
-            flags: Gio.SubprocessFlags.NONE,
-        });
-        proc.init(null);
-    }
+        _openExtensionPreferences() {
+            this._openExtensionPrefs();
+        }
 
     destroy() {
         if (this._activeConnectionsId) {
@@ -274,13 +268,15 @@ const VlanQuickToggle = GObject.registerClass({
 const VlanSystemIndicator = GObject.registerClass({
     GTypeName: 'VlanSystemIndicator'
 }, class VlanSystemIndicator extends QuickSettings.SystemIndicator {
-    _init(client) {
+    _init(client, openExtensionPrefs) {
         super._init();
 
         this._indicator = this._addIndicator();
-        this._indicator.icon_name = 'network-wired-symbolic';
+        this._indicator.icon_name = 'network-transmit-receive-symbolic';
 
-        this.quickSettingsItems.push(new VlanQuickToggle(client));
+        this.quickSettingsItems.push(
+            new VlanQuickToggle(client, openExtensionPrefs)
+        );
 
         QuickSettingsMenu.addExternalIndicator(this);
     }
@@ -302,16 +298,20 @@ export default class VlanSwitcherExtension extends Extension {
             this._updateUI();
         });
         
+        this._openExtensionPrefs = () => {
+            this.openPreferences();
+        };
+
         this._updateUI();
     }
     
     _updateUI() {
         const showPanel = this._settings.get_boolean('show-panel-button');
         const showQuickSettings = this._settings.get_boolean('show-quick-settings');
-        
+
         // Update panel button
         if (showPanel && !this._indicator) {
-            this._indicator = new Indicator(this.client);
+            this._indicator = new Indicator(this.client, this._openExtensionPrefs);
             Main.panel.addToStatusArea('vlan-indicator', this._indicator);
         } else if (!showPanel && this._indicator) {
             this._indicator.destroy();
@@ -320,7 +320,7 @@ export default class VlanSwitcherExtension extends Extension {
         
         // Update quickSettings (system indicator)
         if (showQuickSettings && !this._vlanSystemIndicator) {
-            this._vlanSystemIndicator = new VlanSystemIndicator(this.client);
+            this._vlanSystemIndicator = new VlanSystemIndicator(this.client, this._openExtensionPrefs);
         } else if (!showQuickSettings && this._vlanSystemIndicator) {
             this._vlanSystemIndicator.destroy();
             this._vlanSystemIndicator = null;
