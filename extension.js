@@ -66,7 +66,7 @@ const Indicator = GObject.registerClass(
             // Add preferences option
             let preferencesItem = new PopupMenu.PopupMenuItem(_('Preferences'));
             preferencesItem.connect('activate', () => {
-                this._openPreferences();
+                this._openNetwork();
             });
             this.menu.addMenuItem(preferencesItem);
 
@@ -114,7 +114,7 @@ const Indicator = GObject.registerClass(
             this._createSwitches();
         }
 
-        _openPreferences() {
+        _openNetwork() {
             let proc = new Gio.Subprocess({
                 argv: ['gnome-control-center', 'network'],
                 flags: Gio.SubprocessFlags.NONE,
@@ -215,7 +215,7 @@ const VlanQuickToggle = GObject.registerClass({
         // Add preferences option
         let preferencesItem = new PopupMenu.PopupMenuItem(_('Preferences'));
         preferencesItem.connect('activate', () => {
-            this._openPreferences();
+            this._openNetwork();
         });
         this._section.addMenuItem(preferencesItem);
 
@@ -234,7 +234,7 @@ const VlanQuickToggle = GObject.registerClass({
         this._section.addMenuItem(extensionPrefsItem);
     }
 
-    _openPreferences() {
+    _openNetwork() {
         let proc = new Gio.Subprocess({
             argv: ['gnome-control-center', 'network'],
             flags: Gio.SubprocessFlags.NONE,
